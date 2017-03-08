@@ -3,7 +3,7 @@ import numpy as np
 
 class Pinky(object):
     def __init__(self, P=None, **kwargs):
-        self.P = None
+        self.P = P
         self.extent = kwargs.get('extent', np.array([0, 1, 0, 1]))
         self.bins = kwargs.get('bins', (100,100))
 

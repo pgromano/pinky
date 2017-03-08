@@ -4,6 +4,7 @@ from scipy.interpolate import interp1d, interp2d
 def sample(P_num, n_samples, **kwargs):
     # Get key word arguments
     extent = kwargs.get('extent', np.array([0, 1, 0, 1]))
+    noise = kwargs.get('noise', False)
 
     if np.any(np.array(P_num.shape) <= 100):
         r = kwargs.get('r', 10)
@@ -56,8 +57,18 @@ def sample(P_num, n_samples, **kwargs):
         idx = _gendist(P(tmp_axes[1], Xf(x0)), 1)
     y0 = Yr(tmp_axes[1])[np.squeeze(idx)]
 
-    return np.column_stack([x0,y0])
+    if noise is False:
+        return np.column_stack([x0,y0])
+    else:
+        return _add_noise(np.column_stack([x0,y0]))
 
+def _add_noise(X):
+
+    eps = _variance(X)
+    return X+eps
+
+def _variance(X):
+    return np.random.randn(*X.shape)*X.std(0)**2
 
 def _gendist(P, n):
     if np.any(P < 0):
