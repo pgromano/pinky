@@ -3,7 +3,7 @@ from scipy.interpolate import interp1d, interp2d
 
 def sample(P_num, n_samples, **kwargs):
     # Get key word arguments
-    extent = kwargs.get('extent', np.array([0, 1, 0, 1]))
+    extent = kwargs.get('extent', np.array([-1, 1, -1, 1]))
     noise = kwargs.get('noise', False)
 
     if np.any(np.array(P_num.shape) <= 100):
