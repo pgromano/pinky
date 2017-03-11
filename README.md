@@ -4,12 +4,21 @@ The `pinky` package is a Python implementation of Tristan Ursell's [matlab codes
 
 ### Basic Examples
 ```
-import pinky
-
-p = pinky.Pinky()
+from pinky import Pinky
 ```
 
-Begin by generating a random distribution made by the sum of 3 Gaussians
+For a given matrix distribution, `P`, we can initialize Pinky by...
+
+```
+p = Pinky(P=P)
+```
+
+We'll now give an example of generating a random distribution with 100 columns and 50 rows. First initialize an empty Pinky object.
+```
+p = Pinky()
+```
+
+Let's randomly create a distribution by summing 3 Gaussians. we'll randomly generate the location of `minima`, assign random widths `sigma`, and rotate the peaks by values `theta`.
 
 ```
 n_peaks = 3
@@ -20,7 +29,7 @@ theta = np.random.uniform(-2*np.pi, 2*np.pi, size=(n_peaks))
 p.Gaussian(minima=minima, sigma=sigma, theta=theta)
 ```
 
-Using pinky this distribution can easily be sampled a set number of times. Below we'll sample 1000 points and interpolate with a 10 fold resolution factor.
+Using pinky this distribution can easily be discretely sampled a set number of times. Below we'll sample 1000 points and interpolate with a 10 fold resolution factor.
 
 ```
 sampled_points = p.sample(1000, r=10)
